@@ -5,7 +5,7 @@
 import math
 import re
 
-with open('550test.txt') as f:
+with open('hw3.txt') as f:
     #read in MSA, not empty strings
     align = [line.rstrip() for line in f if line.rstrip() != '']
 
