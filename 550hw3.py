@@ -5,7 +5,7 @@
 import math
 import re
 
-with open('hw3.txt') as f:
+with open('550test.txt') as f:
     #read in MSA, not empty strings
     align = [line.rstrip() for line in f if line.rstrip() != '']
 
@@ -45,7 +45,7 @@ def ColumnEntropy(MSA):
 test = ['AAA','ACC','ACG','ACT']#check with example in lecture slides
 print ColumnEntropy(test)
 print ColumnEntropy(align)
-
+col_ent = ColumnEntropy(align)
 
 #BLOSUM62 file retrieved from ftp://ftp.ncbi.nih.gov/blast/matrices/BLOSUM62
 #read in blosum matrix into a dictionary of dictionaries to represent the rows and columns of BLOSUM62 for easy lookup give AA x AA
@@ -77,7 +77,10 @@ def BLOSUM62_sop(MSA):
     SOP_scores = [int(blos_mat[zipper[i][j][0]][zipper[i][j][1]])for i in range(len(zipper))for j in range(len(zipper[i]))]#you can easily split this list on alignment length if you wanted to store a seperate SP score for each internal pairwise alignment
     #sum up all the BLOSUM pairwise scores
     SP_score = sum(SOP_scores)
-    print SP_score
+    return SP_score
     
 #utilize general function that takes any MSA not just the one in 550test.txt
-BLOSUM62_sop(align)
+sp_score = BLOSUM62_sop(align)
+
+with open('550hw3output.txt','w') as f1:
+    f1.write('Column Entropy: '+str(col_ent)+' SP-score: '+str(sp_score))
